@@ -1,0 +1,16 @@
+{
+    "layer": "top",
+    "modules-left": ["river/tags", "river/mode"],
+    "modules-center": ["river/window"],
+    "modules-right": ["battery", "clock"],
+    "river/window": {
+        "max-length": 50
+    },
+    "battery": {
+        "format": "{capacity}% {icon}",
+        "format-icons": ["", "", "", "", ""]
+    },
+    "clock": {
+        "format-alt": "{:%a, %d. %b  %H:%M}"
+    }
+}

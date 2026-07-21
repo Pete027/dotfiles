@@ -1,0 +1,119 @@
+# Variables
+MOD="Super"
+#riverctl keyboard-layout "us,ua"
+#riverctl keyboard-layout -options "grp:alt_shift_toggle" "us,ua"
+riverctl keyboard-layout -options "grp:capstoggle" "us,ua"
+riverctl set-repeat 50 300
+
+# Tile mode
+riverctl spawn "rivertile -view-padding 1 -outer-padding 1"
+riverctl output-layout rivertile
+riverctl focus-follows-cursor normal
+riverctl set-cursor-warp on-output-change
+
+# Layout Configuration
+riverctl border-width 1
+riverctl border-color-focused "0x51afef"
+riverctl border-color-unfocused "0x282c34"
+riverctl background-color 0x1e1e2e
+
+# Programs
+riverctl map normal Super Return spawn foot
+riverctl map normal Super T spawn ghostty
+riverctl map normal Super D spawn fuzzel
+riverctl map normal Super+Shift E spawn thunar
+riverctl map normal Super E spawn "foot -e yazi"
+riverctl map normal Super P spawn "flameshot gui"
+riverctl map normal Super+Shift Backspace spawn waylock
+
+# State bindings:
+riverctl map normal Super Q close
+riverctl map normal Super+Shift Q exit
+riverctl map normal Super+Shift Return zoom
+riverctl map normal Super F toggle-fullscreen
+riverctl map normal Super Space toggle-float
+riverctl map-pointer normal Super BTN_LEFT move-view
+riverctl map-pointer normal Super BTN_RIGHT resize-view
+riverctl map-pointer normal Super BTN_MIDDLE toggle-float
+
+# Navigation bindings
+riverctl map normal Super K focus-view next
+riverctl map normal Super J focus-view previous
+riverctl map normal Super Tab focus-view next 
+riverctl map normal Super+Shift Tab focus-view previous
+riverctl map normal Super+Control Tab swap next
+riverctl map normal Super+Shift+Control Tab swap previous
+riverctl map normal Super Period focus-output next
+riverctl map normal Super Comma focus-output previous
+riverctl map normal Super+Shift Period send-to-output next
+riverctl map normal Super+Shift Comma send-to-output previous
+
+# Windows moving & resize
+riverctl map normal Super H send-layout-cmd rivertile "main-ratio -0.05"
+riverctl map normal Super L send-layout-cmd rivertile "main-ratio +0.05"
+riverctl map normal Super+Shift H send-layout-cmd rivertile "main-count -1"
+riverctl map normal Super+Shift L send-layout-cmd rivertile "main-count +1"
+riverctl map normal Super+Alt H move left 100
+riverctl map normal Super+Alt J move down 100
+riverctl map normal Super+Alt K move up 100
+riverctl map normal Super+Alt L move right 100
+riverctl map normal Super+Alt+Control H snap left
+riverctl map normal Super+Alt+Control J snap down
+riverctl map normal Super+Alt+Control K snap up
+riverctl map normal Super+Alt+Control L snap right
+riverctl map normal Super+Alt+Shift H resize horizontal -100
+riverctl map normal Super+Alt+Shift J resize vertical 100
+riverctl map normal Super+Alt+Shift K resize vertical -100
+riverctl map normal Super+Alt+Shift L resize horizontal 100
+
+# Tags
+for i in $(seq 1 9)
+do
+    tags=$((1 << ($i - 1)))
+    riverctl map normal Super $i set-focused-tags $tags
+    riverctl map normal Super+Shift $i set-view-tags $tags
+    riverctl map normal Super+Control $i toogle-focused-tags $tags
+    riverctl map normal Super+Shift+Control $i toggle-view-tags $tags
+done
+
+all_tags=$(((1 << 32) - 1))
+riverctl map normal Super 0 set-focused-tags $all_tags
+riverctl map normal Super+Shift 0 set-view-tags $all_tags
+
+# Rules
+#riverctl rule-add -app-id firefox csd
+riverctl rule-add -app-id mpv float
+
+# To change layout orientation
+riverctl map normal Super Up    send-layout-cmd rivertile "main-location top"
+riverctl map normal Super Right send-layout-cmd rivertile "main-location right"
+riverctl map normal Super Left  send-layout-cmd rivertile "main-location left"
+riverctl map normal Super Down  send-layout-cmd rivertile "main-location bottom"
+
+# Passthrough mode
+riverctl declare-mode passthrough
+riverctl map normal Super F11 enter-mode passthrough
+riverctl map passthrough Super F11 enter-mode normal
+
+# Media key
+for mode in normal locked
+do
+# Sound control
+    riverctl map normal None XF86AudioRaiseVolume spawn "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"
+    riverctl map normal None XF86AudioLowerVolume spawn "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
+    riverctl map normal None XF86AudioMute spawn "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+
+# Backlight control
+    riverctl map $mode None XF86MonBrightnessUp spawn 'brightnessctl set +5%'
+    riverctl map $mode None XF86MonBrightnessDown spawn 'brightnessctl set 5%-'
+done
+
+# Autoruns
+exec yambar &
+exec dbus-daemon --session --address=unix:path=$XDG_RUNTIME_DIR/bus &
+exec mako &
+#exec pipewire &
+#exec pipewire-pulse &
+#exec wireplumber &
+exec swaybg -i ~/Pictures/wallpaper.jpg -m fill
+
