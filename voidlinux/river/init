@@ -109,11 +109,13 @@ do
 done
 
 # Autoruns
-exec yambar &
-exec dbus-daemon --session --address=unix:path=$XDG_RUNTIME_DIR/bus &
-exec mako &
-#exec pipewire &
-#exec pipewire-pulse &
-#exec wireplumber &
-exec swaybg -i ~/Pictures/wallpaper.jpg -m fill
+wlr-randr --output Virtual-1 --mode 1366x768@60Hz
+yambar &
+dbus-daemon --session --address=unix:path=$XDG_RUNTIME_DIR/bus &
+mako &
+#pipewire &
+#pipewire-pulse &
+#wireplumber &
+swaybg -i ~/Pictures/wallpaper.jpg -m fill
+
 
