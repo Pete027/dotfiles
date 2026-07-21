@@ -109,7 +109,7 @@ do
 done
 
 # Autoruns
-wlr-randr --output Virtual-1 --mode 1366x768@60Hz
+wlr-randr --output Virtual-1 --mode 1920x1080@60Hz
 yambar &
 dbus-daemon --session --address=unix:path=$XDG_RUNTIME_DIR/bus &
 mako &
