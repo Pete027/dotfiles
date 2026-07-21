@@ -1,0 +1,37 @@
+{
+    "com.github.eckhoff42.ulauncher-favorite-directories": {
+        "id": "com.github.eckhoff42.ulauncher-favorite-directories",
+        "url": "https://github.com/Eckhoff42/Ulauncher-favorite-directories",
+        "updated_at": "2025-02-23T04:20:44.111221",
+        "last_commit": "ac1deaffb31562a7918b37b6331cce27adc4660e",
+        "last_commit_time": "2022-08-29T14:25:22"
+    },
+    "com.github.lighttigerxiv.ulauncher-terminal-runner-extension": {
+        "id": "com.github.lighttigerxiv.ulauncher-terminal-runner-extension",
+        "url": "https://github.com/lighttigerXIV/ulauncher-terminal-runner-extension/",
+        "updated_at": "2025-02-23T04:21:13.443815",
+        "last_commit": "d6bc2157e5c0ef2f812e3051ddde334c7b485c2e",
+        "last_commit_time": "2023-05-02T22:50:12"
+    },
+    "com.github.yannishuber.pass-ulauncher": {
+        "id": "com.github.yannishuber.pass-ulauncher",
+        "url": "https://github.com/yannishuber/pass-ulauncher",
+        "updated_at": "2025-02-23T04:23:46.661475",
+        "last_commit": "25160ce85e731cf40e30ca1fe354b29c1fe6e494",
+        "last_commit_time": "2019-05-28T05:27:22"
+    },
+    "com.github.brpaz.ulauncher-pwgen": {
+        "id": "com.github.brpaz.ulauncher-pwgen",
+        "url": "https://github.com/brpaz/ulauncher-pwgen",
+        "updated_at": "2025-02-23T04:24:07.451598",
+        "last_commit": "96880bb135720cae1ad039b6635062a9e285ca71",
+        "last_commit_time": "2021-12-12T15:47:59"
+    },
+    "com.github.aradar46.ulauncher-cheatsh": {
+        "id": "com.github.aradar46.ulauncher-cheatsh",
+        "url": "https://github.com/aradar46/ulauncher-cheatsh",
+        "updated_at": "2026-05-14T02:43:14.988906",
+        "last_commit": "e1a969c7ca8c98b712ab035a80e21fffc3ad9cec",
+        "last_commit_time": "2026-05-12T21:12:29"
+    }
+}

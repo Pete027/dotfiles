@@ -1,0 +1,82 @@
+{
+    "ea3b0dc2-48ec-41a2-a263-a080ec3ab530": {
+        "id": "ea3b0dc2-48ec-41a2-a263-a080ec3ab530",
+        "name": "Google Search",
+        "keyword": "g",
+        "cmd": "https://google.com/search?q=%s",
+        "icon": "/usr/share/ulauncher/media/google-search-icon.png",
+        "is_default_search": true,
+        "run_without_argument": false,
+        "added": 1740276285.9950683
+    },
+    "dda091cd-3349-4c16-ac04-8f0e44e9c1cd": {
+        "id": "dda091cd-3349-4c16-ac04-8f0e44e9c1cd",
+        "name": "Wikipedia",
+        "keyword": "wiki",
+        "cmd": "https://en.wikipedia.org/wiki/%s",
+        "icon": "/usr/share/ulauncher/media/wikipedia-icon.png",
+        "is_default_search": true,
+        "run_without_argument": false,
+        "added": 1740276285.9951286
+    },
+    "655b52e5-12d2-43b5-b0c5-15f611762367": {
+        "id": "655b52e5-12d2-43b5-b0c5-15f611762367",
+        "name": "Github",
+        "keyword": "git",
+        "cmd": "https://github.com/search?q=%s",
+        "icon": "~/Pictures/github.png",
+        "is_default_search": false,
+        "run_without_argument": false,
+        "added": 1740277507.6053061
+    },
+    "bbe065aa-1d26-4c34-890e-c8cc56cafd56": {
+        "id": "bbe065aa-1d26-4c34-890e-c8cc56cafd56",
+        "name": "Google Keep",
+        "keyword": "keep",
+        "cmd": "https://keep.google.com/",
+        "icon": "~/Pictures/keep_2020q4_48dp.png",
+        "is_default_search": false,
+        "run_without_argument": true,
+        "added": 1740277546.5094523
+    },
+    "4c9e2256-b1d0-4719-9f3b-f49c32a9910c": {
+        "id": "4c9e2256-b1d0-4719-9f3b-f49c32a9910c",
+        "name": "Google Tranlate",
+        "keyword": "trans",
+        "cmd": "https://translate.google.com/?sl=auto&tl=uk&op=translate",
+        "icon": "~/Pictures/Google_Translate_Icon.png",
+        "is_default_search": false,
+        "run_without_argument": true,
+        "added": 1740277578.5932183
+    },
+    "4092331f-c683-47d6-9444-5298560d64e5": {
+        "id": "4092331f-c683-47d6-9444-5298560d64e5",
+        "name": "Ghossty",
+        "keyword": "gt",
+        "cmd": "ghostty -e [[]]",
+        "icon": "~/Pictures/199110421-9ff5fc30-a244-441e-9882-26070662adf9.png",
+        "is_default_search": false,
+        "run_without_argument": false,
+        "added": 1740277594.664857
+    },
+    "fcdd6484-04ba-4b99-bd87-2df0891b188e": {
+        "id": "fcdd6484-04ba-4b99-bd87-2df0891b188e",
+        "name": "Winbox",
+        "keyword": "winbox",
+        "cmd": "winbox",
+        "icon": "~/Documents/WinBox_Linux/assets/img/winbox.png",
+        "is_default_search": false,
+        "run_without_argument": true,
+        "added": 1778717514.8344536
+    },
+    "dd18b36b-a5cf-459b-9fad-429a230335e6": {
+        "id": "dd18b36b-a5cf-459b-9fad-429a230335e6",
+        "name": "Futo Note",
+        "keyword": "fn",
+        "cmd": "futo-notes",
+        "icon": null,
+        "is_default_search": false,
+        "run_without_argument": true,
+        "added": 1783246692.7371807
+    }
+}

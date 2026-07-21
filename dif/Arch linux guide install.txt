@@ -1,0 +1,680 @@
+===//Arch Linux Guide Install
+
+--//Disk
+/boot - 1 Gb (vfat)
+/ - All Gb (btrfs or ext4)
+
+--//Iwctl (wi-fi on installation)
+iwctl
+device list
+station wlan0 scan
+station wlan0 get-networks
+station wlan0 connect "name of wi-fi network"
+password wi-fi
+wait to connect
+Ctrl+c
+ping google.com
+
+--//Install
+pacman -Sy && pacman-key --init && pacman -S archlinux-keyring && archinstall --advanced
+
+--//Base
+pacman -Sy linux-firmware util-linux sof-firmware amd-ucode git base-devel (nerworkmanager wpa_supplicant dhcpcd)
+
+--//Fonts
+pacman -S otf-firamono-nerd ttf-firacode-nerd ttf-hack-nerd ttf-0xproto-nerd (ttf-jetbrains-mono-nerd ttf-noto-nerd)
+or
+pacman -S --needed nerd-fonts
+or
+!!pacman -S noto-fonts noto-fonts-emoji ttf-firacode-nerd ttf-noto-nerd otf-firamono-nerd
+-
+fc-cache -f -v
+
+--//Locale
+micro /etc/locale.gen
+en_US.UTF-8
+uk_UA.UTF-8
+-
+sudo locale-gen
+micro /etc/locale.conf
+add uk_UA.UTF-8
+-
+sudo systemctl enable NetworkManager.service 
+sudo systemctl start NetworkManager.service
+-
+--//Wi-fi
+Run NetworkManager.service
+Try - wifi-menu or nmtui
+-
+sudo systemctl enable gdm bluetooth
+Reboot
+or
+sudo pacman -S blueman bluez
+sudo systemctl enable bluetooth
+automatic on bluetooth - NO
+
+//fwupdmgr
+sudo pacman -S fwupd
+fwupdmgr get-devices
+fwupdmgr refresh
+fwupdmgr get-updates
+fwupdmgr update
+-
+sudo pacman -S gnome-firmware
+
+--//Video
+-//XORG
+sudo pacman -S xorg-server xorg-xinit
+
+-//AMD
+sudo pacman -S --needed libva-mesa-driver mesa lib32-mesa libglvnd xf86-video-amdgpu xf86-video-ati vulkan-radeon lib32-vulkan-radeon (or amdvlk lib32-amdvlk)
+
+-//#NVIDIA
+sudo pacman (yay) -S --needed dkms nvidia-dkms nvidia-utils lib32-nvidia-utils nvidia-settings libva-nvidia-driver libxnvctrl opencl-nvidia lib32-opencl-nvidia
+
+--//#NVIDIA New (Nead )
+sudo pacman -Qs (Search for installed packages)
+sudo dkms nvidia-open-dkms  nvidia-utils lib32-nvidia-utils nvidia-settings libva-nvidia-driver libxnvctrl opencl-nvidia lib32-opencl-nvidia
+
+-//#NVIDIA Open source
+sudo pacman -S libva-mesa-driver mesa lib32-mesa xf86-video-nouveau
+
+-//Optimus-manager
+sudo pacman -S optimus-manager optimus-manager-qt (gdm-prime)
+-
+sudo systemctl enable --now optimus-manager
+
+-//Mangohud
+sudo pacman -S mangohud lib32-mangohud
+-
+mangohud %command%
+mangohud /path/to/app
+
+-//Alternative managers
+1) yay -S envycontrol (envycontrol -s nvidia; envycontrol -s hybrid))
+https://github.com/Askannz/optimus-manager?tab=readme-ov-file
+https://github.com/bayasdev/envycontrol
+2) sudo pacman -S nvidia-prime
+prime-run lutris
+Steam: Properties - Launch options prime-run %command%
+3) sudo pacman -S switcheroo-control
+sudo systemctl enable --now switcheroo-control
+
+https://medium.com/@aviezab/dual-gpu-amd-nvidia-setting-on-arch-linux-based-distro-a88f9874c2d
+
+--//Sushi
+sudo pacman -S sushi
+
+--//Linux-LQX (Optimized kernel for games)
+sudo pacman-key --keyserver hkps://keyserver.ubuntu.com --recv-keys 9AE4078033F8024D
+sudo pacman-key --lsign-key 9AE4078033F8024D
+sudo micro /etc/pacman.conf
+--
+[liquorix]
+Server = https://liquorix.net
+--
+sudo pacman -Sy linux-lqx linux-lqx-headers
+-If GRUB
+sudo grub-mkconfig -o /boot/grub/grub.cfg
+-or systemd-boot
+sudo micro /boot/loader/entries/
+--
+title   Arch Linux (Liquorix)
+linux   /vmlinuz-linux-lqx
+initrd  /initramfs-linux-lqx.img
+options root=PARTUUID=XXXX-XXXX rw
+--
+sudo mkinitcpio -P 
+--
+reboot
+
+--//Themes
+/WhiteSur GTK Theme
+https://github.com/vinceliuice/WhiteSur-gtk-theme
+-
+git clone https://github.com/vinceliuice/WhiteSur-gtk-theme.git --depth=1
+./install.sh
+-Install Nautilus Theme
+./install.sh -N
+-Intall GDM Theme
+sudo ./tweaks.sh -g
+-Install background
+sudo ./tweaks.sh -g -b "my picture.jpg"
+-Icon Pack
+git clone https://github.com/vinceliuice/WhiteSur-icon-theme.git
+cd WhiteSur-icon
+./install.sh
+
+
+--//Extensions
+Extensions Manager
+-
+AppIndicator and KStatusNotifierItem Support
+Blur my Shell
+Compiz alike magic lamp effect
+Compiz windows effect
+Dash to Dock
+Hide Top Bar
+Tiling Shell
+Coverflow Alt-Tab
+Gtk4 Desktop Icons NG (DING)
+Vitals
+Battery Health Charging
+
+-//Alternative extensions
+Forge - (gnome extensions) tail manager
+Search Light
+Dynamic Panel
+Dash-To-Panel
+Just Perfection
+
+--//Reflector
+sudo pacman -S reflector
+sudo reflector --verbose --country 'Ukraine' -l 10 -p https --sort rate --save /etc/pacman.d/mirrorlist
+
+--//#Pacman
+micro /etc/pacman.conf
+ParallelDownloads = 5
+ILoveCandy
+-
+sudo pacman -Syu
+-
+Clear extra packages
+sudo pacman -Sc 
+sudo pamac clean
+Clear system logs
+journalctl --vacuum-time=7d
+--
+sudo pacman -Syyu
+sudo pacman -Sc
+sudo pacman -Scc
+sudo pacman -Rn (Remove package and dependence)
+sudo pacman -Rns (Remove package,dependence and configuration)
+sudo pacman -Qtd
+sudo pacman -Ql <package_name> (list all the files being installed)
+sudo pacman -Qi
+sudo pacman -Qs (Search for installed packages)
+sudo pacman -Qdtq | sudo pacman -Rns - (Removing unused packages (orphans))
+sudo pacman -U file:///path/to/package/package_name-version.pkg.tar.zst
+sudo pacman -U http://www.example.com/repo/example.pkg.tar.zst
+
+--//Update the Arch Linux keyring
+sudo pacman -S archlinux-keyring
+sudo pacman-key --init
+sudo pacman-key --populate archlinux
+
+--//#TRIM
+sudo systemctl enable fstrim.timer
+sudo systemctl start fstrim.timer
+sudo systemctl status fstrim.timer
+-
+cat /var/lib/systemd/timers/stamp-fstrim.timer
+-
+sudo journalctl -u fstrim
+
+--//#GDM
+sudo micro /etc/gdm/custom.conf
+WaylandEnable=true
+
+--//Gsettings
+gsettings list-schemas
+gsettings get
+gsettings describe
+gsettings set
+
+--//Power-profiles-daemon
+sudo pamac install power-profiles-daemon
+sudo systemctl status power-profiles-daemon.service
+powerprofilesctl list
+sudo micro /var/lib/power-profiles-daemon/state.ini
+
+--//#AUR
+git clone https://aur.archlinux.org/libpamac-aur.git
+git clone https://aur.archlinux.org/pamac-aur.git
+git clone https://aur.archlinux.org/yay.git
+git clone https://aur.archlinux.org/paru.git
+cd libpamac-aur
+makepkg -si
+cd ..
+cd pamac-aur
+makepkg -si
+cd ..
+cd yay
+makepkg -si
+cd paru
+makepkg -si
+
+--//#Ghostty
+sudo pacman -S Ghostty
+Ctrl+, - open config
+Ctrl+Shift+, - reload config
+//Ghostty config
+shell-integration = zsh
+background = 282c34
+foreground = ffffff
+
+theme = catppuccin-frappe
+background-opacity = 0.9
+font-family = Fira Code Bold
+#font-size = 13
+
+keybind = shift+alt+space=toggle_quick_terminal
+keybind = shift+up=scroll_page_lines:-20
+keybind = shift+down=scroll_page_lines:20
+
+--//#Zsh
+sudo pacman -S zsh
+chsh -l
+chsh -s /usr/bin/zsh
+If this doesn't work either, edit /etc/passwd by hand.
+//export EDITOR=micro
+-//OhMyZsh
+sh -c "$(wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)"
+-
+powerlevel10k
+cd .oh-my-zsh/themes/
+https://github.com/romkatv/powerlevel10k
+git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k
+echo 'source ~/powerlevel10k/powerlevel10k.zsh-theme' >>~/.zshrc
+sudo micro ~/.zshrc
+ZSH_THEME="powerlevel10k/powerlevel10k"
+-
+plugins=(git zsh-syntax-highlighting zsh-autosuggestions web-search pass)
+-
+# User configuration
+export EDITOR="micro"
+openspf() {spf <$TTY
+}
+zle -N openspf
+bindkey "^f" openspf
+alias gt='ghostty'
+alias fz='fzf --preview "bat --style=numbers --color=always {}"'
+
+--//#Fish
+sudo pacman -S fish
+-
+fish_update_completions
+alias lsa="ls -a" (example)
+abbr --add gco git checkout (example)
+gco (space) => git checkout
+micro ~/.config/fish/config.fish
+abbr gco git checkout
+-
+fish -P (private mode, not write history)
+dirh (directory history)
+cdh (change folder interactive)
+--
+curl https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install | fish
+ofm update
+omf list
+omf instal
+omf theme (Tab)
+
+--//#Tmux
+sudo pacman -S tmux
+-
+prefix + : - text command-mode
+prefix + ? - key shortcuts
+prefix + / - Key hints
+-
+tmux popup (tmux popup -E)
+bind C-` popup  -E -T 'Cmdline' -h 10 -w 50
+-
+git clone https://github.com/tmux-plugins/tpm ~/.config/tmux/plugins/tpm
+-
+//#Tmux config
+micro ~/.config/tmux/tmux.conf
+-
+set-option -sa terminal-overrides ",xterm*:Tc"
+set -g mouse on
+
+unbind C-b
+set -g  prefix C-Space
+bind C-Space send prefix   #Ctrl+Space
+bind r source-file ~/.config/tmux/tmux.conf
+bind C-` popup -T 'Cmdline' -h 10 -w 50
+
+set -g base-index 1
+set -g pane-base-index 1
+set-window-option -g pane-base-index 1
+set-option -g renumber-windows on
+
+bind -n M-H previous-window #Shift+Alt+H previous window
+bind -n M-L next-window #Shift+Alt+L next window
+bind '"' split-window -v -c "#{pane_current_path}"
+bind % split-window -h -c "#{pane_current_path}"
+
+set -g @plugin 'tmux-plugins/tpm'
+set -g @plugin 'tmux-plugins/tmux-sensible'
+set -g @plugin 'catppuccin/tmux'
+set -g @plugin 'dreamsofcode-io/catppuccin-tmux'
+set -g @catppuccin_flavour 'macchiato' # latte, frappe, macchiato, mocha
+
+
+run '~/.config/tmux/plugins/tpm/tpm'
+run '~/.config/tmux/plugins/catppuccin/tmux/catppuccin.tmux'
+-
+tmux source-file ~/.config/tmux/tmux.conf
+-
+Hit prefix + I to fetch the plugin and source it.
+Prefix+I (Ctrl+Space + SHIFT+i)
+-
+mkdir -p ~/.config/tmux/plugins/catppuccin
+git clone   https://github.com/catppuccin/tmux.git ~/.config/tmux/plugins/catppuccin/tmux
+-
+cd ~/.config/tmux/plugins/
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git
+echo "source ${(q-)PWD}/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh">> ${ZDOTDIR:-$HOME}/.zshrc
+-
+git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~//.config/tmux/plugins/zsh-autosuggestions
+-
+sudo micro ~/.zshrc
+plugin=(git zsh-syntax-highlighting zsh-autosuggestions)
+
+--//Ulauncer
+sudo pacman -S ulauncher
+or
+yay ulauncher
+-
+Theme - Nord
+Extensions - Directory Opener, Terminal Runner, Password store, Password Generator.
+Shortcuts 
+Github git https://github.com/search?q=%s
+Google Keep keep https://keep.google.com/
+Google Tranlate trans https://translate.google.com/?sl=ru&tl=en&op=translate
+Ghostty gt ghostty
+
+--//Software #TUI
+sudo pacman -S mc micro zsh fish htop iftop btop bmon tmux tree eza(exa) zoxide bat fzf ripgrep fd fastfetch git wget curl gnupg pass p7zip nmap mtr lynis dnscrypt-proxy inxi tldr kew gdu ntfs-3g glances battop
+
+-//Software #GUI
+Chromium, Firefox, Min browser, LibreWolf, Stacer, Eyedroper, Ulauncer, Zim, Qemu, Sublime, Qbittirrent, Libreoffice-still, Lutris, Steam, Heroic Games Launcher, QMPlay2 or Mpv
+//yay -S heroic-games-launcher-bin
+
+--//Onlyoffice
+git clone https://aur.archlinux.org/onlyoffice-bin.git
+cd onlyoffice-bin
+makepkg -si
+
+--//#UFW + gufw
+sudo pacman -S ufw gufw
+sudo micro /etc/default/ufw
+IPV6=yes
+-
+sudo ufw default deny incoming
+sudo ufw default allow outgoing
+sudo ufw allow ssh
+sudo ufw allow http
+sudo ufw allow https
+sudo ufw enable
+sudo ufw status
+sudo ufw status verbose
+-
+sudo ufw show raw
+You can also read the rules files in /etc/ufw (the files whose names end with .rules).
+https://help.ubuntu.com/community/UFW
+
+--//#FirewallD
+sudo pacman -Ss firewalld
+-
+sudo systemctl enable --now firewalld.service
+sudo systemctl start --now firewalld.service
+-
+firewall-cmd
+firewall-config (Gui)
+-
+sudo firewall-cmd --permanent --zone=public --add-service=networkmanager
+sudo firewall-cmd --reload
+--zone=public must be changed to the used zone for the network (location) you want this to be used in.
+
+--//Dnscrypt-proxy
+sudo pacman -S dnscrypt-proxy
+sudo micro /etc/dnscrypt-proxy/dnscrypt-proxy.toml
+listen_addresses = []
+-
+sudo micro /etc/resolv.conf
+nameserver ::1
+nameserver 127.0.0.1
+options edns0
+-
+sudo chattr +i /etc/resolv.conf
+sudo systemctl enable --now dnscrypt-proxy.socket
+
+--//Addons
+TuxMate(The Linux Bulk App Installer.)
+https://tuxmate.com/
+//linutil
+https://github.com/ChrisTitusTech/linutil
+//fd (find alternative)
+https://github.com/sharkdp/fd
+//endeavouros
+https://discovery.endeavouros.com/nvidia/new-nvidia-driver-installer-nvidia-inst/2022/03/
+//Game Mode
+sudo pacman -S gamemode lib32-gamemode lib32-systemd
+//Wine-Staging
+sudo pacman -S wine-staging
+//Vulkan Tools (vulkaninfo)
+sudo pacman -S vulkan-tools
+//A GUI to help manage Vulkan/OpenGL overlays
+yay -S --noconfirm goverlay
+//Mesa - The 3D Graphics Library - git version, multilib with userpatches support
+sudo pacman -S llvm
+sudo pacman -S lib32-clang
+git clone https://github.com/Frogging-Family/mesa-git
+cd mesa-git
+makepkg -si
+//Proton Plus
+yay -S protonplus
+-
+PLEASE DO DISPLAY= NOT DISPLAY=0 WHEN SETTING THE ENVIRONMENT VARIABLE
+FOR STEAM YOU DO 
+DISPLAY= %command% 
+//CS-1.6 in Wine, if no sound
+sudo pacman -S lib32-pipewire
+//Windows Fonts
+yay ttf-ms-win10-auto
+//Awesome free apps
+https://github.com/Axorax/awesome-free-apps/tree/main
+//SuperFiles
+bash -c "$(curl -sLo- https://superfile.dev/install.sh)"
+//For virtual machine
+sudo pacman -S qemu-guest-agent
+//Linux GPU Control Application
+sudo pacman -S lact
+sudo systemctl enable --now lactd
+https://github.com/ilya-zlobintsev/LACT
+//Gamescope
+sudo pacman -S gamescope
+Steam - gamescope -w 1477 -h 831 -W 1920 -H 1080 -U -f %command%
+https://github.com/ValveSoftware/gamescope
+//Protontricks & Winetricks
+yay -S protontricks
+//Nvme utils for test & informations
+sudo pacman -S nvme-cli
+sudo nvme list
+sudo nvme self-test-log /dev/nvme...
+sudo nvme smart-log /dev/nvme...
+//Faugus-launcher
+paru -S faugus-launcher
+//Mpv
+sudo pacman -S mpv
+cp -r /usr/share/doc/mpv/ ~/.config/
+micro ~/.comfig/mpv/mpv.conf
+micro ~/.comfig/mpv/input.conf
+mpv --list-options | fzf
+https://wiki.archlinux.org/title/Mpv
+//Clapgrep (deep search file)
+yay clapgrep
+//Mission Center (advanced system monitor)
+sudo pacman -S mission-center
+//#Firefox (LibreWolf) config
+about:config
+toolkit.tabbox.switchByScrolling - true
+-
+Extension - Side View
+//Micro editor
+https://github.com/catppuccin/micro/tree/main
+micro - Ctrl+e - set colorscheme - catppuccin-mocha-transparent
+-
+set autoclose on
+-
+Ctrl+t - new tabs
+Ctrl+o - open file
+//#Qemu
+sudo pacman -S qemu libvirt virt-manager
+or full pack
+sudo pacman -S qemu-full qemu-img libvirt virt-install virt-manager virt-viewer edk2-ovmf dnsmasq swtpm guestfs-tools libosinfo tuned
+//#LibreWolf
+git clone https://aur.archlinux.org/librewolf-bin.git
+cd librewolf-bin
+makepkg -si
+if error - gpg --recv-keys (instert key)
+//Varia (Download manager)
+yay varia
+//#Distrobox (https://distrobox.it/)
+sudo pacman -S podman distrobox
+distrobox create
+distrobox enter my-distrobox
+//Python + uv
+sudo pacman -S python
+-
+curl -LsSf https://astral.sh/uv/install.sh | sh
+uv self update
+//simple terminal (st)
+git clone https://github.com/BreadOnPenguins/st
+cd st
+sudo make install
+-
+alt + c & alt + v for copy-paste
+alt + a & alt + s to increase and decrease alpha (transparency) respectively
+alt + shift + k & alt + shift + j to increase and decrease font size, respectively
+//alias
+type "alias" in terminal
+//amd-ucode
+Need to add entries to boot
+/GRUB
+grub-mkconfig -o /boot/grub/grub.cfg
+...
+initrd	/boot/amd-ucode.img /boot/initramfs-linux.img
+...
+/systemd-boot
+sudo micro /boot/loader/entries/entry.conf
+...
+linux   /vmlinuz-linux
+initrd  /cpu_manufacturer-ucode.img  //amd-ucode.img
+initrd  /initramfs-linux.img
+...
+sudo mkinitcpio -P
+//brillo
+yay brillo
+sudo brillo -L
+sudo brillo -S 50
+sudo brillo -A 10
+sudo brillo -U 10
+//Lib for file manager IOS
+sudo pacman -S libimobiledevice
+//Pledge
+wget https://justine.lol/pledge/pledge.com
+chmod +x pledge.com
+./pledge.com
+--(examle)
+./pledge.com -v. -p 'stdio rpath tty' git
+./pledge.com -v. -p 'stdio rpath tty' eza
+./pledge.com -v. -p 'stdio rpath' ls
+--
+./pledge.com -p 'stdio rpath inet dns tty sendfd recvfd' \
+  curl -s http://justine.lol/hello.txt
+//Picocom
+sudo pacman -S picocom
+--
+picocom -b 115200 /dev/ttyUSB*
+*ttyUSB0, ttyUSB1... 
+//Syncthing
+sudo pacman -S syncthing
+--
+syncthing
+http://127.0.0.1:8384
+or
+sudo systemctl --user enable syncthink
+localhost:8384
+//RustDesk
+Download file rustdesk-<version>.pkg.tar.zst from site
+https://github.com/rustdesk/rustdesk/releases/
+-
+sudo pacman -U ./rustdesk-<version>.pkg.tar.zst
+//Yazi
+sudo pacman -S yazi
+--
+mkdir -p ~/.config/yazi/flavors
+mkdir ~/.config/yazi/plugins
+cd ~/.config/yazi/
+touch yazi.toml keymap.toml package.toml theme.toml
+micro ~/.config/yazi/yazi.toml
+[mgr]
+show_hidden = true
+--
+ya pkg add yazi-rs/flavors:catppuccin-mocha
+ya pkg add yazi-rs/flavors:catppuccin-frappe
+touch ~/.config/yazi/theme.toml
+[flavor]
+dark  = "catppuccin-mocha"
+or
+[flavor]
+dark = "catppuccin-frappe"
+--
+ya pkg add terrakok/split-tabs
+--
+touch ~/.config/yazi/keymap.toml
+[mgr]
+prepend_keymap = [
+    { on = "\\", run = "plugin split-tabs spl_toggle", desc = "Split-tabs: toggle split tabs mode" },
+    { on = "<BackTab>", run = "plugin split-tabs spl_switch_tab", desc = "Split-tabs: switch to the other pane, Shift+Tab" },
+    { on = "P", run = "plugin split-tabs spl_preview", desc = "Split-tabs: toggle preview pane" },
+]
+---
+//Foot Terminal
+sudo pacman -Sy foot
+--
+micro ~/.config/foot/foot.ini
+--
+[[main]
+shell=/bin/zsh
+include=/usr/share/foot/themes/catppuccin-macchiato
+#font=0xProtoNerdFontMono-Regular:size=12
+font=FiraCode Nerd Font Mono:size=12
+font-bold=FiraCode Nerd Font Mono:weight=bold:size=12
+font-italic=FiraCode Nerd Font Mono:slant=italic:size=12
+dpi-aware=yes
+initial-window-size-chars=70x17
+pad=10x10
+title=foot
+
+[scrollback]
+lines=10000
+
+[csd]
+preferred=none #Completely disable built-in decorations (title and frames)
+#border-width=1
+#border-color=42BDF8
+
+[colors-dark]
+selection-foreground=c0caf5
+selection-background=33467c
+
+[cursor]
+style=block
+blink=yes
+
+[url]
+launch=xdg-open ${url}
+osc8-underline=url-mode
+style=dotted
+# URL Mode: Start with Ctrl+Shift+U
+# Highlite URL Ctrl+Shift+O
+---
+git clone https://github.com/catppuccin/foot.git
+cd foot
+cp /themes /.config/foot/
+---
+ 
+ 
