@@ -133,28 +133,16 @@ xi -S neovim tree-sitter-cli xdg-utils pnpm
 //for Tmux 
 xi -S ncurses-term
 
-//Gtk-3.0
+//Add Font
+wget https://download.jetbrains.com/fonts/JetBrainsMono-2.304.zip
+cp fonts/ /usr/share/fonts/
+doas xbps-reconfigure -f fontconfig
+
+//Gtk-3.0 Themes
 mkdir -p ~/.config/gtk-3.0
-micro ~/.config/gtk-3.0/settings.ini
---
-[Settings]
-gtk-theme-name=Yaru-Orange-dark
-gtk-icon-theme-name=Yaru-Orange
-gtk-font-name=JetBrains Mono 11
-gtk-cursor-theme-name=Adwaita
-gtk-cursor-theme-size=24
-gtk-toolbar-style=GTK_TOOLBAR_BOTH_HORIZ
-gtk-toolbar-icon-size=GTK_ICON_SIZE_SMALL_TOOLBAR
-gtk-button-images=0
-gtk-menu-images=0
-gtk-enable-event-sounds=1
-gtk-enable-input-feedback-sounds=0
-gtk-xft-antialias=1
-gtk-xft-hinting=1
-gtk-xft-hintstyle=hintslight
-gtk-xft-rgba=rgb
-gtk-application-prefer-dark-theme=0
-#gtk-decoration-layout=menu:close
+touch ~/.config/gtk-3.0/settings.ini
+xi -S nwg-look
+nwg-look
 --
 
 #river #void
