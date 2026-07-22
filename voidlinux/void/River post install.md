@@ -80,10 +80,17 @@ doas xi <package_name> (this xi in packages xtools)
 https://codeberg.org/JakeAtLinux/void-repo/src/branch/main
 https://forum.jpedmedia.com/
 
+brave-browser
 helium-browser
 librewolf-bin
 gofer
 ---
+//Gofer
+https://codeberg.org/JakeAtLinux/Gofer
+tar -xzf gofer-v1.0.0-linux-x86_64.tar.gz
+chmod +x gofer
+sudo mv gofer /usr/local/bin/gofer
+
 //River update to 4.5
 llvm >=21.x (but maybe no need, if edit 'zig/temples' file )
 --
