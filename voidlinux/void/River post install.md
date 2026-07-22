@@ -93,11 +93,15 @@ gofer
 ---
 //Gofer
 https://codeberg.org/JakeAtLinux/Gofer
-tar -xzf gofer-v1.0.0-linux-x86_64.tar.gz
+https://codeberg.org/JakeAtLinux/Gofer/releases
+cd Dowmload/
+tar -xzf gofer-v3.0.0-linux-x86_64.tar.gz
 chmod +x gofer
 sudo mv gofer /usr/local/bin/gofer
-
-
+gofer
+--
+micro ~/.config/gofer/config.toml
+---
 //River update to 4.5
 llvm >=21.x (but maybe no need, if edit 'zig/temples' file )
 --
