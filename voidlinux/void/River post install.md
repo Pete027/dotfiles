@@ -11,6 +11,12 @@ doas rm -rf /var/cache/xbps/*
 xi -Su linux-mainline linux-mainline-headers linux-firmware
 doas reboot
 ---
+//Remove old kernel
+doas vkpurge list
+doas vkpurge rm version
+or
+doas vkpurge rm all
+---
 //Choise locale, add change language
 micro /etc/default/libc-locale
 --
@@ -90,6 +96,7 @@ https://codeberg.org/JakeAtLinux/Gofer
 tar -xzf gofer-v1.0.0-linux-x86_64.tar.gz
 chmod +x gofer
 sudo mv gofer /usr/local/bin/gofer
+
 
 //River update to 4.5
 llvm >=21.x (but maybe no need, if edit 'zig/temples' file )
