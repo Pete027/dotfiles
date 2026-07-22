@@ -135,10 +135,17 @@ xi -S ncurses-term
 
 //Add Font
 wget https://download.jetbrains.com/fonts/JetBrainsMono-2.304.zip
+wget https://github.com/tonsky/FiraCode/releases/download/6.2/Fira_Code_v6.2.zip
+or https://fonts.google.com/
+--
 cp fonts/ /usr/share/fonts/
 doas xbps-reconfigure -f fontconfig
 
 //Gtk-3.0 Themes
+https://github.com/vinceliuice/WhiteSur-gtk-theme
+https://github.com/vinceliuice/WhiteSur-icon-theme
+cp themes/ /usr/share/themes
+cp icons/ /usr/share/icons
 mkdir -p ~/.config/gtk-3.0
 touch ~/.config/gtk-3.0/settings.ini
 xi -S nwg-look
