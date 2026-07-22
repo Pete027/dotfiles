@@ -53,7 +53,7 @@ exit
 doas xbps-install zramen
 micro /etc/sv/zramen/conf
 --
-export ZRAM_COMP_ALGORITHM='zstd'
+export ZRAM_COMP_ALGORITHM="zstd" (delete #)
 --
 doas ln -s /etc/sv/zramen /var/service/
 reboot
