@@ -80,8 +80,10 @@ all_tags=$(((1 << 32) - 1))
 riverctl map normal Super 0 set-focused-tags $all_tags
 riverctl map normal Super+Shift 0 set-view-tags $all_tags
 
-# Rules
-#riverctl rule-add -app-id firefox csd
+# Rules app-id (csd - client-side decorations, ssd - server side decorations, float - start floating)
+riverctl rule-add -app-id "bar" csd
+riverctl rule-add -app-id 'float*' float
+riverctl rule-add -app-id firefox ssd
 riverctl rule-add -app-id mpv float
 
 # To change layout orientation

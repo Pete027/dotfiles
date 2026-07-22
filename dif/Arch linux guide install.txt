@@ -537,7 +537,7 @@ distrobox create
 distrobox enter my-distrobox
 //Python + uv
 sudo pacman -S python
--
+cd .local/
 curl -LsSf https://astral.sh/uv/install.sh | sh
 uv self update
 //simple terminal (st)
