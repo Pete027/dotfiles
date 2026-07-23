@@ -53,15 +53,7 @@
 	    "num-tags": 9,
 	    "hide-vacant": true,
 	    "tag-labels":[
-	         "1️⃣",
-	         "2️⃣",
-	         "3️⃣",
-	         "4️⃣",
-	         "5️⃣",
-	         "6️⃣",
-	         "7️⃣",
-	         "8️⃣",
-	         "9️⃣"
+	         "1:", "2:", "3:", "4:", "5:", "6:󰐡","7:","8:","9:"
 	    ]
 	},
 	"keyboard-state": {
@@ -92,7 +84,8 @@
 	},
 	"cpu": {
 		"format": "{usage}% ",
-	    "tooltip": false
+	    "tooltip": false,
+	    "interval": 10
 	},
 	"memory": {
 	    "format": "{}% "
@@ -110,13 +103,14 @@
 	},
 	"network": {
 		"interface": "eth0",
+		"interval": 30,
 		//"format-wifi": "{ipaddr} ({signalStrength}%) ",
 		//"format-wifi": "{essid} ({signalStrength}%) ",
 		"format-ethernet": "{ipaddr}/{cidr} 🖧",
 		"tooltip-format": "{ifname} via {gwaddr} 🌐",
 		"format-linked": "{ifname} (No IP) 🚫",
 		"format-disconnected": "Disconnected ⚠",
-		"format-alt": "{ifname}: {ipaddr}/{cidr}"
+		"format-alt": "{ifname}: {ipaddr}/{cidr} 󰁝 {bandwidthUpBits}  {bandwidthDownBits}"
 	},
 	"pulseaudio": {
 		// "scroll-step": 1, // %, can be a float

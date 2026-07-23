@@ -1,11 +1,13 @@
-* {
+	* {
 	border: none;
 	/*border-radius: 14px;*/
     border-radius: 15px 15px 15px 15px;
-    font-family: "JetBrains Mono";
-	font-weight: bold;
+    /*font-family: "0xProto Nerd Font";*/
+    /*font-family: "JetBrainsMono Nerd Font";*/
+    font-family: "Fira Code Nerd Font";
+    font-weight: bold;
 	font-size: 14px;
-    min-height: 10px;
+    min-height: 11px;
     padding-top: 2px;
     padding-bottom: 2px;
 	padding-left: 5px;
@@ -38,33 +40,28 @@ window#waybar.empty #window {
 
 #window {
 	color: #161320;
-	background: transparent;
+	background: #ABE9B3;
     transition: none;
-}
-
-#window.focused {
-		background: #ABE9B3;
 }
 
 #custom-launcher {
 	margin-left: 0px;
 	background: #161320;
 	color: #B5E8E0;
-	/*background: #b41e1e;
-	color: #f4f4de;*/
-    transition: none;
-    padding: 0px 20px 0px 20px;
+	transition: none;
+    padding: 0px 25px 0px 25px;
 }
 
 #layout{
 	color: #1A1826;
-	background: transparent;
+	/*background: transparent;*/
+	background: #ABE9B3;
     transition: none;
 }     
 
-#layout.focused {
+/*#layout.focused {
 	background: #ABE9B3;
-}
+}*/
 
 #mode{
 	color: #161320;
@@ -73,43 +70,36 @@ window#waybar.empty #window {
 }
 
 #mode.normal{
+	color:#161320;
 	background: #96CDFB;
-    color:#161320;
 }
 
 #tags {
-    padding-bottom: 2px;
-    padding-top: 0px;
-    padding-left: 2px;
-    padding-right: 2px;
-	background: #96CDFB;
+	padding: 0px 3px 2px 3px;
+	background: #161320;
 }
 
 #tags button {
-	color: #B5E8E0;
+	color: #FFFFFF;
 	background: transparent;
 }
 
-#tags button.occupied {
-	color: #F28FAD;
+/*#tags button.occupied {
+	color: #9933FF;
 	background: transparent;
-}
+}*/
 
 #tags button.focused {
-	color: #99FF33;
-    border-left: 2px solid #FF8FAD;
-    border-right: 2px solid #FF8FAD;
-    border-top: 2px solid #FF8FAD;
-    border-bottom: 2px solid #FF8FAD;
+	color: #27F5EE;
+	padding: 0px 25px 0px 25px;
+	border-left: 2px solid #27F5EE;
+	border-right: 2px solid #27F5EE;
+	border-top: 2px solid #27F5EE;
+	border-bottom: 2px solid #27F5EE;
 }
-
 #tags button.urgent {
-	background: #99FF33;
-    color: #ff0000;
-    border-left: 4px solid #1D1D1D;
-    border-right: 4px solid #1D1D1D;
-    border-top: 4px solid #1D1D1D;
-    border-bottom: 4px solid #1D1D1D;
+	color: #000000;
+	background: #27F5EE;
 }
 
 #tags button:hover {
@@ -184,19 +174,21 @@ window#waybar.empty #window {
 	color: #B5E8E0;
 	background: #161320;
     transition: none;
-    padding: 0px 20px 0px 20px;
+    padding: 0px 25px 0px 25px;
 }
 
 #cpu {
 	color: #161320;
 	background: #96CDFB;
     transition: none;
+    padding: 0px 15px 0px 15px;
 }
 
 #memory {
 	color: #161320;
 	background: #DDB6F2;
     transition: none;
+    padding: 0px 15px 0px 15px;
 }
 
 #disk {
