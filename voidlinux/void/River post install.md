@@ -1,3 +1,7 @@
+//Search packages
+doas xbps-query -Rs
+(example doas xbps-query -Rs font-)
+--
 //Clear cache VoidLinux
 doas xbps-remove -O
 --
@@ -154,11 +158,20 @@ xi -S ncurses-term
 //Add Font
 wget https://download.jetbrains.com/fonts/JetBrainsMono-2.304.zip
 wget https://github.com/tonsky/FiraCode/releases/download/6.2/Fira_Code_v6.2.zip
-or https://fonts.google.com/
+https://fonts.google.com/
+https://nerdfonts.com
+--
+0xProto Nerd Font
+FiraCode Nerd Font
+xi -Su nerd-fonts (1,5 Gb)
 --
 cp fonts/ /usr/share/fonts/
+doas fc-cache -fv
+fc-list : family | sort -u (list all fonts)
+fc-list : family | grep -i "firecode" (search for name)
+doas ln -s /usr/share/fontconfig/conf.avail/10-sub-pixel-rgb.conf /etc/fonts/conf.d/
+doas ln -s /usr/share/fontconfig/conf.avail/10-hinting-slinght.conf /etc/fonts/conf.d/
 doas xbps-reconfigure -f fontconfig
-
 //Gtk-3.0 Themes
 https://github.com/vinceliuice/WhiteSur-gtk-theme
 https://github.com/vinceliuice/WhiteSur-icon-theme
