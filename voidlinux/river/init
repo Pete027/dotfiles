@@ -1,13 +1,11 @@
 # Variables
 MOD="Super"
-#riverctl keyboard-layout "us,ua"
-#riverctl keyboard-layout -options "grp:alt_shift_toggle" "us,ua"
-riverctl keyboard-layout -options "grp:capstoggle" "us,ua"
+riverctl keyboard-layout -options "grp:caps_toggle" "us,ua"
 riverctl set-repeat 50 300
 
 # Tile mode
+riverctl default-layout rivertile
 riverctl spawn "rivertile -view-padding 1 -outer-padding 1"
-riverctl output-layout rivertile
 riverctl focus-follows-cursor normal
 riverctl set-cursor-warp on-output-change
 
@@ -21,9 +19,11 @@ riverctl background-color 0x1e1e2e
 riverctl map normal Super Return spawn foot
 riverctl map normal Super T spawn ghostty
 riverctl map normal Super D spawn fuzzel
-riverctl map normal Super+Shift E spawn thunar
 riverctl map normal Super E spawn "foot -e yazi"
-riverctl map normal Super P spawn "flameshot gui"
+riverctl map normal Super+Shift E spawn pcmanfm
+riverctl map normal Super Print spawn "flameshot gui"
+riverctl map normal Super S spawn subl4
+riverctl map normal Super W spawn helium-browser
 riverctl map normal Super+Shift Backspace spawn waylock
 
 # State bindings:
@@ -36,10 +36,10 @@ riverctl map-pointer normal Super BTN_LEFT move-view
 riverctl map-pointer normal Super BTN_RIGHT resize-view
 riverctl map-pointer normal Super BTN_MIDDLE toggle-float
 
-# Navigation bindings
+# Navigation bindings:
 riverctl map normal Super K focus-view next
 riverctl map normal Super J focus-view previous
-riverctl map normal Super Tab focus-view next 
+riverctl map normal Super Tab focus-view next
 riverctl map normal Super+Shift Tab focus-view previous
 riverctl map normal Super+Control Tab swap next
 riverctl map normal Super+Shift+Control Tab swap previous
@@ -48,11 +48,11 @@ riverctl map normal Super Comma focus-output previous
 riverctl map normal Super+Shift Period send-to-output next
 riverctl map normal Super+Shift Comma send-to-output previous
 
-# Windows moving & resize
+# Windows moving and resize
 riverctl map normal Super H send-layout-cmd rivertile "main-ratio -0.05"
 riverctl map normal Super L send-layout-cmd rivertile "main-ratio +0.05"
-riverctl map normal Super+Shift H send-layout-cmd rivertile "main-count -1"
-riverctl map normal Super+Shift L send-layout-cmd rivertile "main-count +1"
+riverctl map normal Super+Shift H send-layout-cmd rivertile "main-ratio -0.75"
+riverctl map normal Super+Shift L send-layout-cmd rivertile "main-ratio +0.75"
 riverctl map normal Super+Alt H move left 100
 riverctl map normal Super+Alt J move down 100
 riverctl map normal Super+Alt K move up 100
@@ -80,11 +80,17 @@ all_tags=$(((1 << 32) - 1))
 riverctl map normal Super 0 set-focused-tags $all_tags
 riverctl map normal Super+Shift 0 set-view-tags $all_tags
 
+# [Optional] Automatically make windows float on this tag
+#riverctl rule-add -tag ${scratch_tag} float
+
 # Rules app-id (csd - client-side decorations, ssd - server side decorations, float - start floating)
 riverctl rule-add -app-id "bar" csd
 riverctl rule-add -app-id 'float*' float
 riverctl rule-add -app-id firefox ssd
 riverctl rule-add -app-id mpv float
+riverctl rule-add -app-id pcmanfm float
+riverctl rule-add -app-id fuzzel csd
+riverctl rule-add -app-id subl4 csd
 
 # To change layout orientation
 riverctl map normal Super Up    send-layout-cmd rivertile "main-location top"
@@ -97,27 +103,10 @@ riverctl declare-mode passthrough
 riverctl map normal Super F11 enter-mode passthrough
 riverctl map passthrough Super F11 enter-mode normal
 
-# Media key
-for mode in normal locked
-do
-# Sound control
-    riverctl map normal None XF86AudioRaiseVolume spawn "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"
-    riverctl map normal None XF86AudioLowerVolume spawn "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
-    riverctl map normal None XF86AudioMute spawn "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
-
-# Backlight control
-    riverctl map $mode None XF86MonBrightnessUp spawn 'brightnessctl set +5%'
-    riverctl map $mode None XF86MonBrightnessDown spawn 'brightnessctl set 5%-'
-done
-
 # Autoruns
-wlr-randr --output Virtual-1 --mode 1920x1080@60Hz
-yambar &
+wlr-randr --output Virtual-1 --mode 1920x1080@60Hz #1366x768@60Hz
+#yambar &
+waybar &
 dbus-daemon --session --address=unix:path=$XDG_RUNTIME_DIR/bus &
 mako &
-#pipewire &
-#pipewire-pulse &
-#wireplumber &
-swaybg -i ~/Pictures/wallpaper.jpg -m fill
-
-
+swaybg -i ~/Pictures/wallpaper.jpg -m fill &

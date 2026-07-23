@@ -1,16 +1,173 @@
+// -*- mode: jsonc -*-
 {
-    "layer": "top",
-    "modules-left": ["river/tags", "river/mode"],
-    "modules-center": ["river/window"],
-    "modules-right": ["battery", "clock"],
-    "river/window": {
-        "max-length": 50
+    "layer": "top", // Waybar at top layer
+    "position": "top", // Waybar position (top|bottom|left|right)
+    "height": 30, // 30 Waybar height (to be removed for auto height)
+    // "width": 1280, // 1280 Waybar width
+    "spacing": 4, // Gaps between modules (4px)
+    // Choose the order of the modules
+    "modules-left": [
+    	"custom/launcher",
+        "river/layout",
+       	"river/mode",
+       	"river/window"
+    ],
+    "modules-center": [
+        "river/tags"
+        //"power-profiles-daemon"
+    ],
+    "modules-right": [
+    	"idle_inhibitor",
+    	"cpu",
+    	"memory",
+    	"disk",
+    	//"backlight",
+    	//"keyboard-state",
+    	"network",
+    	//"pulseaudio",
+    	//"battery",
+    	//"battery#bat2",
+        "clock",
+        "tray"
+        // "custom/power"
+    ],
+    // Modules configuration
+    "custom/launcher":{
+    	"format": "",
+        "on-click": "fuzzel",
+        "on-click-right": "killall fuzzel"
+	},
+	"river/layout": {
+		"format": "{}",
+	    "min-length": 4,
+		"align": "center"
+	},
+	"river/mode":{
+		"format": "mode: {}"
+	},
+	"river/window":{
+		"format": "{}",
+		"max-length": 50
+	},
+	"river/tags": {
+	    "num-tags": 9,
+	    "hide-vacant": true,
+	    "tag-labels":[
+	         "1️⃣",
+	         "2️⃣",
+	         "3️⃣",
+	         "4️⃣",
+	         "5️⃣",
+	         "6️⃣",
+	         "7️⃣",
+	         "8️⃣",
+	         "9️⃣"
+	    ]
+	},
+	"keyboard-state": {
+		"numlock": true,
+        "capslock": true,
+        "format": "{name} {icon}",
+        "format-icons": {
+        "locked": "",
+        "unlocked": ""
+        }
     },
-    "battery": {
-        "format": "{capacity}% {icon}",
-        "format-icons": ["", "", "", "", ""]
-    },
-    "clock": {
-        "format-alt": "{:%a, %d. %b  %H:%M}"
-    }
+	"idle_inhibitor": {
+		"format": "{icon}",
+	    "format-icons": {
+	    "activated": "",
+	    "deactivated": ""
+	    }
+	},
+	"tray": {
+		// "icon-size": 21,
+	    "spacing": 10
+	},
+	"clock": {
+	    // "timezone": "America/New_York",
+	    "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+		"format-alt": "{:%d-%m-%Y}"
+
+	},
+	"cpu": {
+		"format": "{usage}% ",
+	    "tooltip": false
+	},
+	"memory": {
+	    "format": "{}% "
+	},
+	"disk": {
+		"interval": 30,
+		"format": "{percentage_free}% free on {path}🖴",
+		"header": "Disks: ",
+		"paths": ["/"]
+	},
+	"backlight": {
+		// "device": "acpi_video1",
+	    "format": "{percent}% {icon}",
+	    "format-icons": ["", "", "", "", "", "", "", "", ""]
+	},
+	"network": {
+		"interface": "eth0",
+		//"format-wifi": "{ipaddr} ({signalStrength}%) ",
+		//"format-wifi": "{essid} ({signalStrength}%) ",
+		"format-ethernet": "{ipaddr}/{cidr} 🖧",
+		"tooltip-format": "{ifname} via {gwaddr} 🌐",
+		"format-linked": "{ifname} (No IP) 🚫",
+		"format-disconnected": "Disconnected ⚠",
+		"format-alt": "{ifname}: {ipaddr}/{cidr}"
+	},
+	"pulseaudio": {
+		// "scroll-step": 1, // %, can be a float
+		"format": "{volume}% {icon} {format_source}",
+		"format-bluetooth": "{volume}% {icon} {format_source}",
+		"format-bluetooth-muted": " {icon} {format_source}",
+		"format-muted": " {format_source}",
+		"format-source": "{volume}% ",
+		"format-source-muted": "",
+		"format-icons": {
+		"headphone": "",
+		"hands-free": "",
+		"headset": "",
+		"phone": "",
+		"portable": "",
+		"car": "",
+		"default": ["", "", ""]
+	    },
+	    "on-click": "pavucontrol"
+	},
+	"battery": {
+	    "states": {
+	    // "good": 95,
+		"warning": 30,
+	    "critical": 15
+	    },
+	    "format": "{capacity}% {icon}",
+	    "format-full": "{capacity}% {icon}",
+	    "format-charging": "{capacity}% ",
+	    "format-plugged": "{capacity}% ",
+	    "format-alt": "{time} {icon}",
+	    // "format-good": "", // An empty format will hide the module
+	    // "format-full": "",
+	    "format-icons": ["", "", "", "", ""]
+	},
+	"battery#bat2": {
+	    "bat": "BAT2"
+	},
+	"power-profiles-daemon": {
+		"format": "{icon}",
+	    "tooltip-format": "Power profile: {profile}\nDriver: {driver}",
+	    "tooltip": true,
+	    "format-icons": {
+	    "default": "",
+	    "performance": "",
+	    "balanced": "",
+	    "power-saver": ""
+	    }
+	},
+
+
+
+   
 }
