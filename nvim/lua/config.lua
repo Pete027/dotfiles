@@ -51,6 +51,7 @@ vim.pack.add({
     { src = "https://github.com/nvim-telescope/telescope.nvim" },
     { src = "https://github.com/nvim-telescope/telescope-ui-select.nvim" },
     { src = "https://github.com/nvim-lua/plenary.nvim" },
+    { src = "https://github.com/norcalli/nvim-colorizer.lua" },
 })
 --//Theme
 require("catppuccin").setup({transparent_background = true})
@@ -63,6 +64,7 @@ require("vim._core.ui2").enable({
 })
 --//Plugins options
 require("smear_cursor").toggle()
+require'colorizer'.setup()
 require("lualine").setup()
 require("lspconfig")
 require("mason").setup({
