@@ -675,6 +675,7 @@ style=dotted
 git clone https://github.com/catppuccin/foot.git
 cd foot
 cp /themes /.config/foot/
----
- 
+ //Bcc/eBPF Tools
+ https://github.com/iovisor/bcc
+ sudo pacman -S bcc bcc-tools python-bcc
  
