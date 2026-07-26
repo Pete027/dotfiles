@@ -14,8 +14,8 @@
 	padding-right: 5px;
     margin-top: 2px;
 	margin-bottom: 0px;
-    /*color: #B5E8E0;
-	background: #161320;*/
+   /*color: #B5E8E0;
+	  background: #7f849c;*/
 }
 
 window#waybar {
@@ -26,7 +26,7 @@ window#waybar {
     margin-right: 0px;
 }
 
-window#waybar.hidden {
+*window#waybar.hidden {
 	opacity: 0.2;
 }
 
@@ -40,14 +40,14 @@ window#waybar.empty #window {
 
 #window {
 	color: #161320;
-	background: #ABE9B3;
+	background: #A6E3A1;
     transition: none;
 }
 
 #custom-launcher {
 	margin-left: 0px;
 	background: #161320;
-	color: #B5E8E0;
+	color: #A6E3A1;
 	transition: none;
     padding: 0px 25px 0px 25px;
 }
@@ -55,23 +55,23 @@ window#waybar.empty #window {
 #layout{
 	color: #1A1826;
 	/*background: transparent;*/
-	background: #ABE9B3;
+	background: #A6E3A1;
     transition: none;
 }     
 
 /*#layout.focused {
-	background: #ABE9B3;
+	background: #A6E3A1;
 }*/
 
 #mode{
 	color: #161320;
-	background: #F28FAD;
+	background: #F38BA8;
     transition: none;
 }
 
 #mode.normal{
 	color:#161320;
-	background: #96CDFB;
+	background: #89B4FA;
 }
 
 #tags {
@@ -80,51 +80,52 @@ window#waybar.empty #window {
 }
 
 #tags button {
+	color: #7F849C;
+	background: transparent;
+}
+
+#tags button.occupied {
 	color: #FFFFFF;
 	background: transparent;
 }
 
-/*#tags button.occupied {
-	color: #9933FF;
-	background: transparent;
-}*/
-
 #tags button.focused {
-	color: #27F5EE;
+	color: #70F8F4;
 	padding: 0px 25px 0px 25px;
-	border-left: 2px solid #27F5EE;
-	border-right: 2px solid #27F5EE;
-	border-top: 2px solid #27F5EE;
-	border-bottom: 2px solid #27F5EE;
+	border-left: 2px solid #70F8F4;
+	border-right: 2px solid #70F8F4;
+	border-top: 2px solid #70F8F4;
+	border-bottom: 2px solid #70F8F4;
 }
+
 #tags button.urgent {
 	color: #000000;
-	background: #27F5EE;
+	background: #F38BA8;
 }
 
 #tags button:hover {
 	box-shadow: inherit;
 	text-shadow: inherit;
-	background: #FF8FAD;
+	background: #F5C2E7;
 	color: #161320;
-    border-color: #E8A2AF;
+    border-color: #F38BA8;
 }
 
 #tags button.focused:hover {
-    background: #E8A2AF;
-	color: #161320;
+    background: #F5C2E7;
+ 	color: #161320;
 	border-color: #161320;
 }
 
 #network {
 	color: #161320;
-	background: #bd93f9;
+	background: #F5C2E7;
     transition: none;
 }
 
 #pulseaudio {
 	color: #1A1826;
-	background: #FAE3B0;
+	background: #F9E2AF;
     transition: none;
 }
 
@@ -164,14 +165,13 @@ window#waybar.empty #window {
 
 #clock {
 	color: #161320;
-	background: #ABE9B3;
-	/*background: #1A1826;*/
+	background: #A6E3A1;
     transition: none;
 }
 
 #idle_inhibitor {
 	margin-left: 0px;
-	color: #B5E8E0;
+	color: #89B4FA;
 	background: #161320;
     transition: none;
     padding: 0px 25px 0px 25px;
@@ -179,28 +179,28 @@ window#waybar.empty #window {
 
 #cpu {
 	color: #161320;
-	background: #96CDFB;
+	background: #89B4FA;
     transition: none;
     padding: 0px 15px 0px 15px;
 }
 
 #memory {
 	color: #161320;
-	background: #DDB6F2;
+	background: #F5C2E7;
     transition: none;
     padding: 0px 15px 0px 15px;
 }
 
 #disk {
 	color: #161320;
-	background: #96CDFB;
+	background: #89B4FA;
     transition: none;
 }
 
 #tray {
   	padding-left: 0px;
 	padding-right: 0px;
-    color: #B5E8E0;
+    color: transparent;
 	background: #161320;
     transition: none;
 }
