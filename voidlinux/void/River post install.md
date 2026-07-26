@@ -182,6 +182,14 @@ touch ~/.config/gtk-3.0/settings.ini
 xi -S nwg-look
 nwg-look
 --
-
+//Helium-browser install with bin
+https://github.com/imputnet/helium-linux/releases/
+Cd Download/
+sudo tar -xvf helium-*-x86_64_linux.tar.xz -C /opt/
+sudo ln -s /opt/helium/helium /usr/bin/helium-browser
+--
+cd helium-*-x86_64_linux/
+cp helium.desktop/ usr/share/applications/
+---
 #river #void
 
