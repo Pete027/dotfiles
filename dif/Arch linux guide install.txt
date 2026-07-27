@@ -194,7 +194,8 @@ sudo pacman -Qtd
 sudo pacman -Ql <package_name> (list all the files being installed)
 sudo pacman -Qi
 sudo pacman -Qs (Search for installed packages)
-sudo pacman -Qdtq | sudo pacman -Rns - (Removing unused packages (orphans))
+sudo pacman -Qtd (list unused pachages)
+sudo pacman -Qtdq | sudo pacman -Rns - (Removing unused packages (orphans))
 sudo pacman -U file:///path/to/package/package_name-version.pkg.tar.zst
 sudo pacman -U http://www.example.com/repo/example.pkg.tar.zst
 
