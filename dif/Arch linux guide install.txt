@@ -279,27 +279,46 @@ echo 'source ~/powerlevel10k/powerlevel10k.zsh-theme' >>~/.zshrc
 sudo micro ~/.zshrc
 ZSH_THEME="powerlevel10k/powerlevel10k"
 -
-plugins=(git zsh-syntax-highlighting zsh-autosuggestions web-search pass)
--
+plugins=(git zsh-syntax-highlighting zsh-autosuggestions web-search fzf pass)
+
+source $ZSH/oh-my-zsh.sh
+
+#fzf
+source <(fzf --zsh)
+
 # User configuration
 export EDITOR="micro"
-openspf() {spf <$TTY
-}
+export MUSPLAYER="kew"
+export VISUAL="subl"
+
+openspf() {spf <$TTY}
 zle -N openspf
 bindkey "^f" openspf
+openyazi() {yazi <$TTY}
+zle -N openyazi
+bindkey "^e" openyazi
+alias v='nvim'
 alias gt='ghostty'
+alias y='yazi'
+alias pi='sudo pacman -S'
+alias pu='sudo pacman -Syu'
 alias fz='fzf --preview "bat --style=numbers --color=always {}"'
+alias gia='git add -A && git commit -m "dotfiles" && git branch -M main'
+alias gip='git push -u origin main'
 
 --//#Fish
 sudo pacman -S fish
--
+--
 fish_update_completions
+--
+micro ~/.config/fish/config.fish
+-
+fzf --fish | source (# for fzf)
 alias lsa="ls -a" (example)
 abbr --add gco git checkout (example)
 gco (space) => git checkout
-micro ~/.config/fish/config.fish
 abbr gco git checkout
--
+--
 fish -P (private mode, not write history)
 dirh (directory history)
 cdh (change folder interactive)
@@ -465,6 +484,10 @@ cd mesa-git
 makepkg -si
 //Proton Plus
 yay -S protonplus
+-
+PROTON_ENABLE_WAYLAND=1 %command% (Run game without XWayland)
+PROTON_ENABLE_WAYLAND=1 gamemoderun %command%
+PROTON_ENABLE_WAYLAND=1 gamemoderun mangohud %command%
 -
 PLEASE DO DISPLAY= NOT DISPLAY=0 WHEN SETTING THE ENVIRONMENT VARIABLE
 FOR STEAM YOU DO 
