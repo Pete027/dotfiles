@@ -345,15 +345,35 @@ git clone https://github.com/tmux-plugins/tpm ~/.config/tmux/plugins/tpm
 //#Tmux config
 micro ~/.config/tmux/tmux.conf
 -
+set -g default-terminal "tmux-256color"
+set -ag terminal-overrides ",*:RGB"
 set-option -sa terminal-overrides ",xterm*:Tc"
 set -g mouse on
+set -g set-clipboard on
+set -g detach-on-destroy off
 
 unbind C-b
 set -g  prefix C-Space
 bind C-Space send prefix   #Ctrl+Space
+unbind r
 bind r source-file ~/.config/tmux/tmux.conf
 bind C-` popup -T 'Cmdline' -h 10 -w 50
+bind C-t display-popup -d "#{pane_current_path}" -w 75% -h 75% -E "zsh"
+bind f new-pane
 
+setw -g mode-keys vi
+bind-key h select-pane -L
+bind-key j select-pane -D
+bind-key k select-pane -U
+bind-key l select-pane -R
+
+# Alt+hjkl to switch panes without prefix
+bind -n M-h select-pane -L
+bind -n M-j select-pane -D
+bind -n M-k select-pane -U
+bind -n M-l select-pane -R
+
+set-option -g status-position top
 set -g base-index 1
 set -g pane-base-index 1
 set-window-option -g pane-base-index 1
@@ -364,12 +384,14 @@ bind -n M-L next-window #Shift+Alt+L next window
 bind '"' split-window -v -c "#{pane_current_path}"
 bind % split-window -h -c "#{pane_current_path}"
 
+set -g @tmux_plugins '~/.config/tmux/plugins/'
 set -g @plugin 'tmux-plugins/tpm'
 set -g @plugin 'tmux-plugins/tmux-sensible'
-set -g @plugin 'catppuccin/tmux'
+#set -g @plugin 'catppuccin/tmux'
+set -g @plugin 'sandudorogan/tmux-pane-tree'
 set -g @plugin 'dreamsofcode-io/catppuccin-tmux'
 set -g @catppuccin_flavour 'macchiato' # latte, frappe, macchiato, mocha
-
+set -g @catppuccin_window_status_style "rounded"
 
 run '~/.config/tmux/plugins/tpm/tpm'
 run '~/.config/tmux/plugins/catppuccin/tmux/catppuccin.tmux'
@@ -380,7 +402,7 @@ Hit prefix + I to fetch the plugin and source it.
 Prefix+I (Ctrl+Space + SHIFT+i)
 -
 mkdir -p ~/.config/tmux/plugins/catppuccin
-git clone   https://github.com/catppuccin/tmux.git ~/.config/tmux/plugins/catppuccin/tmux
+git clone https://github.com/catppuccin/tmux.git ~/.config/tmux/plugins/catppuccin/tmux
 -
 cd ~/.config/tmux/plugins/
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git
