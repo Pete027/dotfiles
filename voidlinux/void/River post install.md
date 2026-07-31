@@ -38,6 +38,18 @@ end
 --
 doas reboot
 ---
+//TRIM
+doas lsblk --discard
+doas fstrim / (Run trim manually
+---
+micro /etc/cron.weekly/fstrim
+--
+#!/bin/sh
+
+fstrim /
+--
+chmod u+x /etc/cron.weekly/fstrim
+---
 //Screenshots
 xi -S grim flameshot swaybg
 ---
