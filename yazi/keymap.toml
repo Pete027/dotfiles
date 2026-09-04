@@ -1,6 +1,9 @@
 [mgr]
 prepend_keymap = [
     { on = "\\", run = "plugin split-tabs spl_toggle", desc = "Split-tabs: toggle split tabs mode" },
-    { on = "<BackTab>", run = "plugin split-tabs spl_switch_tab", desc = "Split-tabs: switch to the other pane" },
+    { on = "<S-Tab>", run = "plugin split-tabs spl_switch_tab", desc = "Split-tabs: switch to the other pane" },
     { on = "P", run = "plugin split-tabs spl_preview", desc = "Split-tabs: toggle preview pane" },
+    { on = "M", run = "plugin mount", desc = "Sift+m, Run a mount manager for Yazi" },
 ]
+
+
