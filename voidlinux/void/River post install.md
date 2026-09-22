@@ -21,6 +21,20 @@ doas vkpurge rm version
 or
 doas vkpurge rm all
 ---
+//Setup Zramen (zram)
+xi -S zramen
+doas micro /etc/sv/zramen/conf
+--
+export ZRAM_COMP_ALGORITHM=zstd
+export ZRAM_SIZE=50
+--
+ZRAM_SIZE=50 or 100
+delete # before parametrs
+--
+doas ln -s /etc/sv/zramen /var/service
+doas sv restart zramen
+doas zramctl
+---
 //Choise locale, add change language
 micro /etc/default/libc-locale
 --
