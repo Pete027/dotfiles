@@ -3,7 +3,7 @@ vim.g.maplocalleader = " "
 local map = vim.keymap.set
 map("i", "<C-c>", "<Esc>")
 --vim.keymap.set('n', '<leader>e', ':Explore<CR>')
-map("n", "<leader>ps", '<cmd>lua vim.pack.update()<CR>')
+map("n", "<leader>ps", "<cmd>lua vim.pack.update(nil, { force = true })<CR>")
 map('n', '<leader>o', ':update<CR>:source<CR>')
 --vim.keymap.set("n", "<space><space>x", "<cmd>source %<CR>")
 map("n", "<leader>xx", "<cmd>source %<CR>")
