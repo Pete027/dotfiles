@@ -427,7 +427,7 @@ Google Tranlate trans https://translate.google.com/?sl=ru&tl=en&op=translate
 Ghostty gt ghostty
 
 --//Software #TUI
-sudo pacman -S mc micro zsh fish htop iftop btop bmon tmux tree eza(exa) zoxide bat fzf ripgrep fd fastfetch git wget curl gnupg pass p7zip nmap mtr lynis dnscrypt-proxy inxi tldr kew gdu ntfs-3g glances battop
+sudo pacman -S mc micro zsh fish htop iftop btop bmon tmux tree eza(exa) zoxide bat fzf ripgrep fd pv fastfetch git wget curl gnupg pass p7zip nmap mtr lynis dnscrypt-proxy inxi tldr kew gdu ntfs-3g glances battop
 
 -//Software #GUI
 Chromium, Firefox, Min browser, LibreWolf, Stacer, Eyedroper, Ulauncer, Zim, Qemu, Sublime, Qbittirrent, Libreoffice-still, Lutris, Steam, Heroic Games Launcher, QMPlay2 or Mpv
@@ -724,4 +724,12 @@ cp /themes /.config/foot/
  //Bcc/eBPF Tools
  https://github.com/iovisor/bcc
  sudo pacman -S bcc bcc-tools python-bcc
- 
+ //Penelope(analog netcat)
+ https://github.com/brightio/penelope
+ --
+wget -q https://raw.githubusercontent.com/brightio/penelope/refs/heads/main/penelope.py && python3 penelope.py
+--
+uv (pipx) install
+uv tool install git+https://github.com/brightio/penelope	
+penelope --help
+penelope help run
